@@ -1,0 +1,10 @@
+ext {
+    versions = [
+            support       : "26.1.0",
+            okHttp        : "3.9.0",
+            retrofit      : '2.3.0',
+            dagger        : '2.11',
+            glide         : '4.1.1',
+            anko          : "0.10.2"
+    ]
+}
