@@ -2,9 +2,13 @@ package com.swepthong.start
 
 import android.app.Application
 import android.content.Context
+import android.content.IntentFilter
+import android.support.v4.content.LocalBroadcastManager
+import com.airbnb.deeplinkdispatch.DeepLinkHandler
 import com.facebook.stetho.Stetho
 
 import com.squareup.leakcanary.LeakCanary
+import com.swepthong.start.base.deeplink.DeepLinkReceiver
 import com.swepthong.start.injection.component.AppComponent
 import com.swepthong.start.injection.component.DaggerAppComponent
 import com.swepthong.start.injection.module.AppModule
@@ -31,6 +35,8 @@ class StartApplication : Application() {
             Stetho.initializeWithDefaults(this)
             LeakCanary.install(this)
         }
+        val intentFilter = IntentFilter(DeepLinkHandler.ACTION)
+        LocalBroadcastManager.getInstance(this).registerReceiver(DeepLinkReceiver(), intentFilter)
     }
 
     // Needed to replace the component with a test specific one

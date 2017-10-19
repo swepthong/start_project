@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.content_detail.*
 import java.net.URLDecoder
 
-@DeepLink("gank://androidwing.net/detail/{$DETAIL_PARAM_URL}")
+@DeepLink("start://androidwing.net/detail/{$DETAIL_PARAM_URL}")
 class DetailActivity : BaseActivity() {
 
     private var url = ""

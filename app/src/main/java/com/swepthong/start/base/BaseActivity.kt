@@ -90,6 +90,5 @@ abstract class BaseActivity : AppCompatActivity(), AnkoLogger {
         private const val KEY_ACTIVITY_ID = "KEY_ACTIVITY_ID"
         private val NEXT_ID = AtomicLong(0)
         private val sComponentsArray = LongSparseArray<ConfigPersistentComponent>()
-        private val TAG = BaseActivity::class.java.simpleName
     }
 }

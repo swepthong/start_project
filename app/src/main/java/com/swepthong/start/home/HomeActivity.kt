@@ -86,6 +86,6 @@ class HomeActivity : BaseActivity(), HomeView {
     }
 
     companion object {
-        const val DETAIL = "gank://androidwing.net/detail/"
+        const val DETAIL = "start://androidwing.net/detail/"
     }
 }
