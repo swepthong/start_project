@@ -8,5 +8,5 @@ import dagger.Subcomponent
  * Created by xiangrui on 17-10-17.
  */
 @PerFragment
-@Subcomponent(modules = arrayOf(FragmentModule::class))
+@Subcomponent(modules = [(FragmentModule::class)])
 interface FragmentComponent

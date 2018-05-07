@@ -23,7 +23,10 @@ class HomeAdapter @Inject constructor(@ActivityContext
         this.list = list
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): DataBoundViewHolder<ItemGankBinding> {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): DataBoundViewHolder<ItemGankBinding> {
         return DataBoundViewHolder(
                 ItemGankBinding.inflate(LayoutInflater.from(context), parent, false))
     }

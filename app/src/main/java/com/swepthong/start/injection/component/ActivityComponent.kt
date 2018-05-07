@@ -10,7 +10,7 @@ import dagger.Subcomponent
  * Created by xiangrui on 17-10-17.
  */
 @PerActivity
-@Subcomponent(modules = arrayOf(ActivityModule::class))
+@Subcomponent(modules = [(ActivityModule::class)])
 interface ActivityComponent {
 
     fun inject(baseActivity: BaseActivity)

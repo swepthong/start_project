@@ -1,5 +1,6 @@
 package com.swepthong.start.base
 
+import android.content.Context
 import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.support.annotation.LayoutRes
@@ -7,6 +8,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.util.LongSparseArray
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import com.swepthong.start.StartApplication
@@ -36,7 +38,7 @@ abstract class BaseFragment : Fragment() {
         if (sComponentsArray.get(mFragmentId) == null) {
             Log.i(TAG, "Creating new ConfigPersistentComponent id=$mFragmentId")
             configPersistentComponent = DaggerConfigPersistentComponent.builder()
-                    .appComponent(StartApplication[activity].component)
+                    .appComponent(StartApplication[activity as Context].component)
                     .build()
             sComponentsArray.put(mFragmentId, configPersistentComponent)
         } else {
@@ -46,27 +48,38 @@ abstract class BaseFragment : Fragment() {
         mFragmentComponent = configPersistentComponent.fragmentComponent(FragmentModule(this))
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState?.putLong(KEY_FRAGMENT_ID, mFragmentId)
+        outState.putLong(KEY_FRAGMENT_ID, mFragmentId)
+    }
+
+    override fun onContextItemSelected(item: MenuItem?): Boolean {
+        return super.onContextItemSelected(item)
     }
 
     override fun onDestroy() {
-        if (!activity.isChangingConfigurations) {
-            Log.i(TAG, "Clearing ConfigPersistentComponent id=$mFragmentId")
-            sComponentsArray.remove(mFragmentId)
+        activity?.run {
+            if (!isChangingConfigurations) {
+                Log.i(TAG, "Clearing ConfigPersistentComponent id=$mFragmentId")
+                sComponentsArray.remove(mFragmentId)
+            }
         }
+
         super.onDestroy()
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         //mBinding = createDataBinding(inflater,container,savedInstanceState)
         if (hasBind()) {
             mBinding = container?.bind(layoutId())
             return mBinding?.root as View
         }
 
-        val view: View? = inflater?.inflate(layoutId(), container, false) as View
+        val view: View? = inflater.inflate(layoutId(), container, false) as View
         return view as View
     }
 
